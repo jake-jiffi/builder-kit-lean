@@ -1,0 +1,11 @@
+{
+  "description": "builder-kit has one hook and it never stops anything. git-allow lets a short list of safe, everyday commands (git init, status, diff, log, add, commit, switch, branch; npm test, npm run build, npm ci) run without a permission prompt. It never blocks and never asks. Nothing in this plugin interrupts a build.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/git-allow.mjs\"", "timeout": 5 }]
+      }
+    ]
+  }
+}

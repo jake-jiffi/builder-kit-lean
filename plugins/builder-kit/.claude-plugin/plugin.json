@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "builder-kit",
+  "description": "Build a product from a written plan in one hands-off run. builder-kit decides what the plan left open, builds, checks and reports, and leaves the project set up to last: tests kept in the repo, shared components, security checked, a record of every decision. Nothing stops a build.",
+  "author": {
+    "name": "Jiffi",
+    "url": "https://clarityclub.jiffi.co"
+  },
+  "homepage": "https://github.com/jake-jiffi/builder-kit-lean",
+  "repository": "https://github.com/jake-jiffi/builder-kit-lean",
+  "license": "UNLICENSED",
+  "keywords": [
+    "jiffi",
+    "build",
+    "plan",
+    "tests",
+    "security",
+    "components",
+    "hands-off"
+  ]
+}

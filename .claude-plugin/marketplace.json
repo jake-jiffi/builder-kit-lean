@@ -1,0 +1,23 @@
+{
+  "name": "builder-kit-lean",
+  "owner": {
+    "name": "Jake Shelley",
+    "url": "https://github.com/jake-jiffi"
+  },
+  "metadata": {
+    "description": "builder-kit: build a product from a written plan in one hands-off run, set up to last."
+  },
+  "plugins": [
+    {
+      "name": "builder-kit",
+      "source": "./plugins/builder-kit",
+      "description": "builder-kit: build a product from a written plan in one hands-off run. It decides what the plan left open, builds, checks and reports, and leaves the project set up to last: tests kept in the repo, shared components, security checked, a record of every decision. Nothing stops a build.",
+      "author": {
+        "name": "Jiffi"
+      },
+      "homepage": "https://github.com/jake-jiffi/builder-kit-lean",
+      "license": "UNLICENSED",
+      "version": "1.0.0"
+    }
+  ]
+}
