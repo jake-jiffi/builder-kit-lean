@@ -18,7 +18,7 @@ Run the project's one check command: lint, types, every test. All of it passes, 
 
 ## 2. The contract
 
-Go down `docs/acceptance.md` line by line. Each line gets evidence: the name of the test that proves it, or what you did and what you saw. "It looks right" is not evidence. A line you can't prove is not met. Say so.
+Go down `docs/acceptance.md` line by line. Each line gets evidence, written under that line in `docs/acceptance.md`: the name of the test that proves it, or what you did and what you saw. "It looks right" is not evidence. A line you can't prove is not met. Say so.
 
 ## 3. Break it
 
@@ -28,7 +28,7 @@ Use the product the way it will be misused. At least these:
 - **Two at once.** The same action from two people at the same moment. Exactly one should win.
 - **Someone pretending.** Not signed in. Signed in as the wrong person. Extra fields that claim a role, an owner or a status.
 - **Guessing.** Repeated wrong passwords or PINs. Something should slow them down.
-- **Restart.** Stop it and start it. Nothing is lost.
+- **Restart.** Stop it and start it. Nothing is lost. Do this against a throwaway copy of the data, so no test entries are left in the real one.
 - **Whatever this product is most likely to get wrong.** Name it, then try it.
 
 Everything that breaks gets fixed and gets a test. If a fix changes something the plan spelled out (a new reply code, an extra confirm step), keep the fix and list it under "Holes in the plan" in the report, so the person decides.
@@ -47,7 +47,7 @@ Open every screen in a real browser (the Playwright tools, or headless Chrome), 
 
 Looking at a screen is the point. Keeping screenshots is not: take them outside the project and throw them away.
 
-If Impeccable is installed, use it the hands-off way: run its detector on every screen and do one critique and audit pass yourself, then fix what's P0 to P2. Skip its interview, its sub-agents and its saved reports, and don't add anything it tells you to say to your report. If its detector flags something the brand decided, the brand wins. If UI UX Pro Max is installed, look up the rules for these screens (`--domain ux`) and fix what's High or Medium. A rule that doesn't apply to this product is not a finding. Neither chooses colours, fonts or styles when a brand exists.
+If Impeccable is installed, use it the hands-off way: run its detector on every screen and do one critique and audit pass yourself, then fix what's P0 to P2. Given a URL, the detector only sees the first signed-out screen in light mode. For signed-in and dark screens, open each one in the browser you already drive for the tests and point the detector at that browser (`detect --cdp <port>`). Skip its interview, its sub-agents and its saved reports, and don't add anything it tells you to say to your report. If its detector flags something the brand decided, the brand wins. If UI UX Pro Max is installed, look up the rules for these screens (`--domain ux`) and fix what's High or Medium. A rule that doesn't apply to this product is not a finding. Neither chooses colours, fonts or styles when a brand exists.
 
 ## 5. Safety
 

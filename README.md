@@ -1,6 +1,19 @@
+<p align="center">
+  <img src="assets/banner.png" alt="Plan in, product out. builder-kit, a Claude Code plugin. Builds from your written plan in one run, with the checks that matter." width="100%">
+</p>
+
+<p align="center">
+  <img alt="Works with Claude Code" src="https://img.shields.io/badge/works%20with-Claude%20Code-599cff">
+  <a href="https://github.com/jake-jiffi/build-then-break"><img alt="Pairs with build-then-break" src="https://img.shields.io/badge/pairs%20with-build--then--break-d5e6ff"></a>
+  <a href="https://github.com/jake-jiffi/find-then-doubt"><img alt="Pairs with find-then-doubt" src="https://img.shields.io/badge/pairs%20with-find--then--doubt-d5e6ff"></a>
+  <a href="https://clarityclub.jiffi.co"><img alt="From Jiffi Clarity Club" src="https://img.shields.io/badge/from-Jiffi%20Clarity%20Club-fff58a"></a>
+</p>
+
 # builder-kit
 
 Give Claude Code a written plan. Get back a working product that is set up to last.
+
+This is the quick way to build. One run, no stops, and the minimum checks we'd put on anything.
 
 Claude already builds a small product well from a good plan. Left alone, it also skips things: it leaves nothing saved in git, no record of what it decided for you, no check that runs when the code changes. builder-kit adds that part and stays out of the way of the rest.
 
@@ -8,7 +21,7 @@ Claude already builds a small product well from a good plan. Left alone, it also
 - **Nothing in it stops a build.** It has one hook, and that hook only lets a short list of safe everyday commands run without a permission prompt.
 - **It leaves a foundation.** Tests kept in the project, shared components, security checked, every step saved, every decision recorded.
 
-This is version 1.0, the lean rewrite. The earlier version (0.9) built in phases with gates and is still published at `jiffi-co/claude-plugins`.
+This is version 1.0, the lean rewrite. The earlier version (0.9) built in phases with gates and is still published at `jiffi-co/claude-plugins`. For the full setup, with one session running a crew of builders, see [workbench](https://github.com/jake-jiffi/workbench).
 
 ## Install it in a minute
 
@@ -82,19 +95,19 @@ The same small product, a shift swap board for a cafe, was built from the same p
 | The plan, then "build this" | 2 | 43 of 43, twice | 1 and 2 | 16 and 22 min |
 | The same, plus one sentence asking for tests, security and shared components | 1 | 43 of 43 | 7 | 34 min |
 | builder-kit 0.9 | 2 | 43 of 43, twice | 8, twice | 70 and 115 min |
-| builder-kit 1.0 | 2 | 43 of 43, twice | 13, twice | 42 and 45 min |
+| builder-kit 1.0 | 3 | 43 of 43, three times | 13, three times | 29, 42 and 45 min |
 
 What this shows, and what it doesn't:
 
 - **The kit doesn't make the product score higher.** Every build that started from the plan passed every check. Claude does that on its own.
 - **It does change what is left behind.** The plain builds committed nothing and left no README, no record of decisions and no check on push.
-- **It costs about twice the time of a plain build**, and less than half the time of 0.9.
+- **It costs about twice the time of a plain build**, and less than half the time of 0.9. The third run, on the kit as published, took 29 minutes.
 
 Full detail in [docs/how-it-was-tested.md](docs/how-it-was-tested.md).
 
 ### Limits of this testing
 
-- One small product, two runs. Nothing here says how it does on a large product or a long project.
+- One small product, three runs. Nothing here says how it does on a large product or a long project.
 - The 13 foundation items were written after the plain builds were seen, so they measure "did the build do what was asked", not a blind test.
 - The test builds were agents following the skills. They can't fire a plugin's hooks or start its reviewers, so the second opinion never ran in a test. The hook has its own tests.
 - It validates and installs in real Claude Code (2.1.325). A full build in real Claude Code, on a Mac or on Windows, is still to be run.
@@ -120,6 +133,7 @@ plugins/builder-kit/
 ├── scripts/          the idea8 importer and the kit's tests
 └── PRINCIPLES.md     the eight rules the kit is written to
 docs/                 the test results and the rules block
+assets/               the banner
 ```
 
 ## Credits

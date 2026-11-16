@@ -11,7 +11,7 @@ The same small product (a shift swap board for a cafe, from an idea8-style plan 
 | Plan, then "build this" | 2 | 43 of 43, twice | 1 and 2 of 13 | 16 and 22 min | 237k and 266k |
 | The same, plus one sentence asking for tests, security, shared components and a README | 1 | 43 of 43 | 7 of 13 | 34 min | 289k |
 | builder-kit 0.9, full setup | 2 | 43 of 43, twice | 8 of 13, twice | 70 and 115 min | 655k and 719k |
-| builder-kit 1.0 lean, full setup | 2 | 43 of 43, twice | 13 of 13, twice | 42 and 45 min | 371k and 376k |
+| builder-kit 1.0 lean, full setup | 3 | 43 of 43, three times | 13 of 13, three times | 29, 42 and 45 min | 326k, 371k and 376k |
 
 What the plain builds left out: no README, nothing committed to git, no decisions file, no acceptance contract, no project CLAUDE.md, no lint, no check on push, no shared components layer. One of the two wrote browser tests and then deleted them.
 
@@ -24,4 +24,5 @@ Limits:
 - The test agents read the skills. They could not start the two reviewer agents, so the "second opinion" step did not run in any lean build. Both said so in their reports, as the skill tells them to.
 - Hooks do not fire for the test agents. The one remaining hook has its own tests.
 - The kit validates and installs in real Claude Code (2.1.325, a clean home folder, from this repository). A build has not been run in real Claude Code, on a Mac or on Windows.
-- After these runs the kit changed in response to what the two lean builds reported: a reviewer rewritten to fit the lean build, a short way to use Impeccable hands-off (the design steps were the slowest part of both lean builds), and clearer rules on brand files and project documents. Those changes have not been through a build. The same goes for the commit rule (stage by naming paths) and the idea8 importer's new next step, though both have tests in the kit's own suite.
+- After the first two lean runs the kit changed in response to what they reported: a reviewer rewritten to fit the lean build, a short way to use Impeccable hands-off (the design steps were the slowest part of both), staging commits by path, and clearer rules on brand files and project documents. The third run was on the kit with those changes, and the design steps took about five minutes.
+- The third run's own notes led to a few more clarifications (where the evidence goes, how to scan signed-in and dark screens, what to do when the plan itself supplies a file of PINs). Those have not been through a build.

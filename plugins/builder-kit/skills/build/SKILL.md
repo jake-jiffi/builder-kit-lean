@@ -36,6 +36,7 @@ The plan will leave things open. Decide them yourself and write each one down in
 
 - **How it's built.** Use the simplest thing that meets the plan's own limits. If the plan needs accounts, a hosted database or hosting, use what the person already has connected. Do not add a service the plan doesn't need.
 - **Things the plan didn't say.** Take the safest, most ordinary option.
+- **A secret the plan hands you.** If one of the plan's own files holds real passwords, PINs or keys (a seed list of people, say), keep that file out of git, commit a copy with made-up values beside it, make the first start say plainly what is missing, and put this first in the decisions.
 - **Holes in the plan.** Where the plan contradicts itself or leaves a rule out, pick the reading that does the least harm, and list it under "Holes in the plan" so the person sees it first.
 
 Never stop to ask about any of these. A written decision the person can reverse is worth more to them than a question that stalls the build.
@@ -48,11 +49,11 @@ Then straight through, in this order, because each step is checked by the next:
 
 1. The data and the rules of the business, defined once, with tests for every rule as you write it.
 2. Whatever serves them (the API, the server, the jobs), with tests through the front door.
-3. The shared components, then the screens built from them and from the brand's tokens.
+3. The shared components, then the screens built from them and from the brand's tokens. If UI UX Pro Max is installed, look up the rules for these screens before you write them. It is cheaper than fixing them at the check.
 4. The unglamorous parts: empty states, error messages a person can act on, loading, the phone layout, dark mode if the brand has one.
 5. The browser tests for each main journey.
 
-Keep going until it runs. Commit to git whenever a piece works, so there is always a good version to go back to (start a repository if there isn't one, and write `.gitignore` before the first commit). Stage by naming what you touched (`git add src tests README.md`), not `git add .` or `git add -A`: named paths go straight through, and a bulk add can pick up a secret. No branches per step, no progress documents, no status reports along the way.
+Keep going until it runs. Commit to git whenever a piece works, so there is always a good version to go back to (start a repository if there isn't one, and write `.gitignore` before the first commit; if git has no author set, set one for this project only and say so in the report). Stage by naming what you touched (`git add src tests README.md`), not `git add .` or `git add -A`: named paths go straight through, and a bulk add can pick up a secret. No branches per step, no progress documents, no status reports along the way.
 
 ## 5. Check it
 
