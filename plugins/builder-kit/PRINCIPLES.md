@@ -14,7 +14,7 @@ One page. Every skill in this plugin follows it.
 | Job | Owner when installed | What builder-kit does |
 |-----|----------------------|-----------------------|
 | Idea and requirements | idea8 | Files the plan with `/builder-kit:jiffi-import-idea8` and builds from it |
-| Brand, design tokens, components | Brandi | Builds from Brandi's files. Never invents a look |
+| Brand, design tokens, components | brandi | Builds from brandi's files. Never invents a look |
 | A security review before going live | find-then-doubt | `ship` runs it and the person chooses what to fix |
 | Changes to something that works | show-then-build | `iterate` hands the change to it first |
 | Every code edit | build-then-break | `build` writes each piece under it |

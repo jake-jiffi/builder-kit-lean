@@ -83,7 +83,7 @@ builder-kit doesn't repeat what another skill does well. It uses each of these w
 | The security review before going live | [find-then-doubt](https://github.com/jake-jiffi/find-then-doubt) |
 | Checking screens | [Impeccable](https://impeccable.style) and [UI UX Pro Max](https://uupm.cc) |
 | Anything a person will read | [sound-human](https://github.com/jake-jiffi/sound-human) |
-| The look | [Brandi](https://github.com/jake-jiffi/brandi) |
+| The look | [brandi](https://github.com/jake-jiffi/brandi) |
 
 The rules that tie them together are in [docs/clarity-rules-lean.md](docs/clarity-rules-lean.md). They go in `~/.claude/CLAUDE.md`.
 

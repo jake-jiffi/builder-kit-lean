@@ -34,7 +34,7 @@ One run, start to finish. No phases, no approvals, no questions along the way. W
 
 ## It leans on the skills you already have
 
-builder-kit doesn't repeat what another skill does well. When these are installed it uses them, and carries on without any that aren't: build-then-break for every piece of code, show-then-build for later changes, find-then-doubt for the security review before going live, Impeccable and UI UX Pro Max for checking screens, sound-human for anything a person will read, Brandi for the look.
+builder-kit doesn't repeat what another skill does well. When these are installed it uses them, and carries on without any that aren't: build-then-break for every piece of code, show-then-build for later changes, find-then-doubt for the security review before going live, Impeccable and UI UX Pro Max for checking screens, sound-human for anything a person will read, brandi for the look.
 
 ## What changed from 0.9
 

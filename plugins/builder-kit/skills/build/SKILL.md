@@ -94,7 +94,7 @@ builder-kit doesn't repeat what another installed skill already does well. Use e
 | Anything a person will read | sound-human | Last pass on the README, messages and commit text. Remove the AI giveaways only. Add no opinions or personality to project documents |
 | Before it goes live | find-then-doubt | A full security review that tries to knock down each of its own findings. `ship` runs it, and the person chooses what to fix. The build's own security pass in `check` still runs and never waits |
 | Later changes | show-then-build | Shows a change before it's made. `iterate` hands over to it |
-| The look | Brandi | Its tokens and components are the look. Never invent one |
+| The look | brandi | Its tokens and components are the look. Never invent one |
 
 ## Keep it fast
 
