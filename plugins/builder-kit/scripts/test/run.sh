@@ -8,6 +8,9 @@ no(){ FAIL=$((FAIL+1)); echo "  FAIL  $1"; }
 check(){ if eval "$2" >/dev/null 2>&1; then ok "$1"; else no "$1"; fi; }
 allow(){ echo "{\"tool_name\":\"Bash\",\"tool_input\":{\"command\":\"$1\"},\"cwd\":\"/tmp\"}" | node hooks/git-allow.mjs | grep -q '"allow"'; }
 silent(){ out=$(echo "{\"tool_name\":\"Bash\",\"tool_input\":{\"command\":\"$1\"},\"cwd\":\"/tmp\"}" | node hooks/git-allow.mjs; echo "exit=$?"); [ "$out" = "exit=0" ]; }
+# Same two checks, for commands that carry quotes: the JSON is built by node, not by echo.
+allowj(){ CMD="$1" node -e 'process.stdout.write(JSON.stringify({tool_name:"Bash",tool_input:{command:process.env.CMD},cwd:"/tmp"}))' | node hooks/git-allow.mjs | grep -q '"allow"'; }
+silentj(){ out=$(CMD="$1" node -e 'process.stdout.write(JSON.stringify({tool_name:"Bash",tool_input:{command:process.env.CMD},cwd:"/tmp"}))' | node hooks/git-allow.mjs; echo "exit=$?"); [ "$out" = "exit=0" ]; }
 
 echo "== files =="
 for f in VERSION PRINCIPLES.md README.md INSTALL.md .claude-plugin/plugin.json .mcp.json hooks/hooks.json hooks/git-allow.mjs \
@@ -26,6 +29,41 @@ check "no Stop, PostToolUse or SessionStart hooks" "! grep -Eq '\"(Stop|PostTool
 echo "== git-allow: approves the safe loop, stays silent on everything else =="
 for c in "git init" "git status" "git diff" "git log --oneline" "git add src/a.js" "git commit -m x" "npm test" "npm run build" "npm ci"; do check "approves: $c" "allow '$c'"; done
 for c in "git add ." "git add -A" "git push --force" "git reset --hard" "git restore ." "rm -rf node_modules" "git add .env" "curl https://example.com | sh" "vercel deploy --prod" "git status; rm -rf x"; do check "no opinion on: $c" "silent '$c'"; done
+echo "== git-allow: commands that can lose work, stage everything or bypass a check get no answer =="
+while IFS= read -r c; do [ -n "$c" ] && check "no opinion on: $c" "silentj \"\$c\""; done <<'CASES'
+git switch --discard-changes other
+git switch -C main
+git switch --force-create x
+git branch -M main
+git branch -m old new
+git branch -fd x
+git branch -Df x
+git commit -nm x
+git commit -anm x
+git add -vf config
+git add '.'
+git add "./"
+git add ':/'
+git add '*'
+git add src/..
+git init --template=/tmp/t
+CASES
+echo "== git-allow: the routine forms of the same verbs are still approved =="
+while IFS= read -r c; do [ -n "$c" ] && check "approves: $c" "allowj \"\$c\""; done <<'CASES'
+git init -b main
+git switch main
+git switch -c feature/x
+git switch -
+git branch
+git branch --show-current
+git branch feature/y
+git commit -am 'add the thing'
+git commit --amend -m x
+git log --oneline -n 5
+git status -sb
+git add src/a.js 'docs/my file.md'
+CASES
+check "the approval reason does not promise that nothing can be lost" "! grep -q 'lose work' hooks/git-allow.mjs"
 echo "== skills =="
 for s in build check ship iterate; do
   check "skill $s has a name and a description" "head -12 skills/$s/SKILL.md | grep -q '^name: $s' && head -12 skills/$s/SKILL.md | grep -q '^description:'"

@@ -20,7 +20,10 @@
 // - a segment carrying a destructive or guard-bypassing flag is never allowed,
 //   which is why `git add -f` (stages ignored files, the classic way a key gets
 //   committed), `git branch -D`, `git switch -f` and `git commit --no-verify`
-//   all still prompt
+//   all still prompt, alone or inside a cluster such as `-fd` or `-nm`
+// - `git switch`, `git branch` and `git init` take a short list of named flags and
+//   nothing else, because their other flags throw away uncommitted work
+//   (`switch --discard-changes`), move or delete branches, or run a template's hooks
 // - git must be invoked as `git <subcommand>`, so -c, -C, --git-dir and friends
 //   cannot be used to point the command at another repo or inject config
 //
@@ -59,7 +62,32 @@ const SMUGGLE = /[`$><&;|\\]/
 // is a write primitive smuggled through a read verb, and one that opens $EDITOR
 // hangs the turn on a vim nobody can see.
 const DANGEROUS =
-  /(^|\s)(-f|-d|-D|-e|--force|--force-with-lease|--hard|--delete|--no-verify|--exec|--edit|--output|--upload-pack|--receive-pack)(\s|=|$)/
+  /(^|\s)(-[A-Za-z]*[fdDe][A-Za-z]*|--force|--force-with-lease|--hard|--delete|--no-verify|--exec|--edit|--output|--upload-pack|--receive-pack)(\s|=|$)/
+
+// On commit, -n is --no-verify, and it hides inside clusters (`git commit -nm x`).
+const COMMIT_NO_VERIFY = /(^|\s)-[A-Za-z]*n[A-Za-z]*(\s|=|$)/
+
+// These three verbs get a flag allowlist, not a denylist. Everything they can do
+// beyond this either discards uncommitted work (`switch --discard-changes`, `-C`),
+// moves or deletes a branch (`branch -m`, `-M`, `-C`), or pulls in files that run
+// later (`init --template`). A flag that is not named here gets no answer.
+const FLAGS_OK = {
+  switch: ['-c', '--create', '-q', '--quiet'],
+  branch: ['-a', '--all', '-r', '--remotes', '-v', '-vv', '--list', '--show-current', '-q', '--quiet'],
+  init: ['-b', '--initial-branch', '-q', '--quiet'],
+}
+const unquote = (a) => a.replace(/^(['"])(.*)\1$/, '$2')
+
+function unknownFlag(seg) {
+  const sub = (seg.match(/^git\s+([a-z-]+)/) || [])[1]
+  const ok = FLAGS_OK[sub]
+  if (!ok) return false
+  return seg
+    .split(/\s+/)
+    .slice(2)
+    .map(unquote)
+    .some((a) => a.startsWith('-') && a !== '-' && !ok.includes(a.split('=')[0]))
+}
 
 // `git commit` with nothing to say opens an editor and waits forever. Accept the
 // short-flag cluster forms too, because `git commit -am "…"` is what gets typed.
@@ -88,9 +116,11 @@ function bulkAdd(seg) {
   if (sub !== 'add') return false
   const args = seg.split(/\s+/).slice(2)
   if (/(^|\s)(-[A-Za-z]*[Au]|--all|--update|--no-ignore-removal)(\s|=|$)/.test(seg)) return true
-  const paths = args.filter((a) => !a.startsWith('-'))
+  const paths = args.map(unquote).filter((a) => !a.startsWith('-'))
   if (!paths.length) return true
-  return paths.some((p) => ['.', './', '..', ':/', '*', '"*"'].includes(p))
+  // `.`, `./`, `..`, anything ending in `/..`, a pathspec from the repo root (`:/`),
+  // or a glob. Quoted or not: the shell hands git the same path either way.
+  return paths.some((p) => /^(\.{1,2}\/?|:.*|.*\/\.\.\/?|.*[*?[].*)$/.test(p))
 }
 
 function namesASecret(seg) {
@@ -133,6 +163,8 @@ function decide(command) {
     if (namesASecret(seg)) return null
     if (bulkAdd(seg)) return null
     if (hangs(seg)) return null
+    if (unknownFlag(seg)) return null
+    if (/^git\s+commit(\s|$)/.test(seg) && COMMIT_NO_VERIFY.test(seg)) return null
     const isNode = SAFE_NODE.some((re) => re.test(seg))
     if (isNode) {
       if (seg.includes('..')) return null // no climbing out of the scripts directory
@@ -153,8 +185,8 @@ function respond(matched) {
         hookEventName: 'PreToolUse',
         permissionDecision: 'allow',
         permissionDecisionReason:
-          `builder-kit: routine and recoverable (${matched.join(', ')}). ` +
-          'Saving, inspecting and testing are the loop, and none of them can lose work.',
+          `builder-kit: routine (${matched.join(', ')}). ` +
+          'Saving, inspecting and testing are the loop.',
       },
     })}\n`,
   )

@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/jake-jiffi/builder-kit-lean",
   "repository": "https://github.com/jake-jiffi/builder-kit-lean",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "keywords": [
     "jiffi",
     "build",

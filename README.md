@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+  <a href="LICENSE"><img alt="Licence: MIT" src="https://img.shields.io/badge/licence-MIT-0f063c"></a>
   <img alt="Works with Claude Code" src="https://img.shields.io/badge/works%20with-Claude%20Code-599cff">
   <a href="https://github.com/jake-jiffi/build-then-break"><img alt="Pairs with build-then-break" src="https://img.shields.io/badge/pairs%20with-build--then--break-d5e6ff"></a>
   <a href="https://github.com/jake-jiffi/find-then-doubt"><img alt="Pairs with find-then-doubt" src="https://img.shields.io/badge/pairs%20with-find--then--doubt-d5e6ff"></a>
@@ -18,7 +19,7 @@ This is the quick way to build. One run, no stops, and the minimum checks we'd p
 Claude already builds a small product well from a good plan. Left alone, it also skips things: it leaves nothing saved in git, no record of what it decided for you, no check that runs when the code changes. builder-kit adds that part and stays out of the way of the rest.
 
 - **One run, start to finish.** No phases, no approvals, no questions along the way. Where the plan is silent it decides, and writes the decision down for you to change later.
-- **Nothing in it stops a build.** It has one hook, and that hook only lets a short list of safe everyday commands run without a permission prompt.
+- **Nothing in it stops a build.** It has one hook, and that hook only lets a short list of routine commands run without a permission prompt: saving and inspecting with git, and the project's own tests and build.
 - **It leaves a foundation.** Tests kept in the project, shared components, security checked, every step saved, every decision recorded.
 
 This is version 1.0, the lean rewrite. The earlier version (0.9) built in phases with gates and is still published at `jiffi-co/claude-plugins`. For the full setup, with one session running a crew of builders, see [workbench](https://github.com/jake-jiffi/workbench).
@@ -110,6 +111,7 @@ Full detail in [docs/how-it-was-tested.md](docs/how-it-was-tested.md).
 - One small product, three runs. Nothing here says how it does on a large product or a long project.
 - The 13 foundation items were written after the plain builds were seen, so they measure "did the build do what was asked", not a blind test.
 - The test builds were agents following the skills. They can't fire a plugin's hooks or start its reviewers, so the second opinion never ran in a test. The hook has its own tests.
+- The hook approves `npm test`, `npm run build` and `npm ci` without asking, and those run the project's own scripts. Use the kit on a project you trust.
 - It validates and installs in real Claude Code (2.1.325). A full build in real Claude Code, on a Mac or on Windows, is still to be run.
 
 To run the kit's own checks:
@@ -144,4 +146,4 @@ assets/               the banner
 
 ## Licence
 
-To be confirmed.
+[MIT](LICENSE). Use it, change it, share it.

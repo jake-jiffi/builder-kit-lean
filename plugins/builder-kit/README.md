@@ -18,7 +18,7 @@ Claude already builds a small product well from a good plan. builder-kit doesn't
 
 One run, start to finish. No phases, no approvals, no questions along the way. Where the plan is silent it decides, and writes the decision in `DECISIONS.md` for you to change later. The only time it asks anything is when there is no plan at all, because a build from one line is a good product for a business that doesn't exist.
 
-**Nothing in this plugin stops a build.** It has one hook, and that hook only removes permission prompts for a short list of safe everyday commands. It never blocks and never asks.
+**Nothing in this plugin stops a build.** It has one hook, and that hook only removes permission prompts for a short list of routine commands: saving and inspecting with git, and the project's own tests and build (which run the project's own scripts, so use it on a project you trust). It never blocks and never asks.
 
 ## What's in it
 
