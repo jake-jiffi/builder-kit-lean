@@ -85,6 +85,17 @@ builder-kit doesn't repeat what another skill does well. It uses each of these w
 | Anything a person will read | [sound-human](https://github.com/jake-jiffi/sound-human) |
 | The look | [brandi](https://github.com/jake-jiffi/brandi) |
 
+The four Jiffi skills also install from this marketplace, as plugins:
+
+```bash
+claude plugin install sound-human@builder-kit-lean
+claude plugin install show-then-build@builder-kit-lean
+claude plugin install build-then-break@builder-kit-lean
+claude plugin install find-then-doubt@builder-kit-lean
+```
+
+Each one is built from its own repo, so its page above stays the place to read about it. To keep them current, turn on auto-update for this marketplace once: `/plugin` in Claude Code, then Marketplaces, then builder-kit-lean.
+
 The rules that tie them together are in [docs/clarity-rules-lean.md](docs/clarity-rules-lean.md). They go in `~/.claude/CLAUDE.md`.
 
 ## How it was tested
