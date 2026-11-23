@@ -22,8 +22,8 @@
     {
       "name": "sound-human",
       "source": {
-        "source": "github",
-        "repo": "jake-jiffi/sound-human"
+        "source": "url",
+        "url": "https://github.com/jake-jiffi/sound-human.git"
       },
       "description": "Removes the signs of AI writing from anything a person will read, in Australian English.",
       "author": {
@@ -37,8 +37,8 @@
     {
       "name": "show-then-build",
       "source": {
-        "source": "github",
-        "repo": "jake-jiffi/show-then-build"
+        "source": "url",
+        "url": "https://github.com/jake-jiffi/show-then-build.git"
       },
       "description": "Shows a change before building it: a preview page to open, then a yes, then the build, checked against the preview.",
       "author": {
@@ -52,8 +52,8 @@
     {
       "name": "build-then-break",
       "source": {
-        "source": "github",
-        "repo": "jake-jiffi/build-then-break"
+        "source": "url",
+        "url": "https://github.com/jake-jiffi/build-then-break.git"
       },
       "description": "Builds code with restraint, then tries to break it before calling it done. Replaces karpathy-guidelines and adversarial-review.",
       "author": {
@@ -67,8 +67,8 @@
     {
       "name": "find-then-doubt",
       "source": {
-        "source": "github",
-        "repo": "jake-jiffi/find-then-doubt"
+        "source": "url",
+        "url": "https://github.com/jake-jiffi/find-then-doubt.git"
       },
       "description": "Security review for code you own: finds likely holes, then three reviewers try to knock each one down before it reaches the report.",
       "author": {
